@@ -1,15 +1,14 @@
 package com.practice.elanorhoak.practiceappfactions;
 
-import android.bluetooth.BluetoothAdapter;
+
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 public class Factions extends AppCompatActivity {
 
@@ -30,17 +29,11 @@ public class Factions extends AppCompatActivity {
     int[] hareArray = {R.mipmap.h_g1, R.mipmap.h_g2, R.mipmap.h_g3,
             R.mipmap.h_g4, R.mipmap.h_g3, R.mipmap.h_g2};
 
-    //set up Bluetooth adapter
-    BluetoothAdapter mBluetoothAdapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_factions);
-
-        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        checkBluetooth();
+        //create button
 
         runLlama    = false;
         runMallard  = false;
@@ -53,15 +46,10 @@ public class Factions extends AppCompatActivity {
 
     }
 
-    //check if device supports Bluetooth
-    public void checkBluetooth(){
-        if(mBluetoothAdapter == null){
-            Toast.makeText(getApplicationContext(),"This device does not support Bluetooth",Toast.LENGTH_SHORT).show();
-        }
-        else{
-            Toast.makeText(getApplicationContext(),"Tada! Bluetooth works!",Toast.LENGTH_SHORT).show();
-        }
-
+    //when button pressed, go to Bluetooth menu
+    public void gotoBT(View view){
+        Intent intent = new Intent(this, BluetoothActivity.class);
+        startActivity(intent);
     }
 
     //llama
@@ -93,8 +81,6 @@ public class Factions extends AppCompatActivity {
 
     //run animation
     Runnable runnable = new Runnable() {
-
-
         public void run() {
             if(runLlama == true) {
                 image.setImageResource(llamaArray[i]);
@@ -113,7 +99,6 @@ public class Factions extends AppCompatActivity {
 
                 image.postDelayed(this, 125);
             }
-
             else if(runHare == true) {
                 image.setImageResource(hareArray[i]);
                 i++;
@@ -127,13 +112,10 @@ public class Factions extends AppCompatActivity {
                 image.setImageResource(R.mipmap.ic_egg_logo_nosquare);
                 image.postDelayed(this, 125);
             }
-
         }
+    }; //end runnable
 
-
-    };
-
-}
+}//end Factions
 
 
         /*
